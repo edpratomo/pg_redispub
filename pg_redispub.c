@@ -9,7 +9,7 @@ PG_FUNCTION_INFO_V1(redispub);
 
 Datum redispub(PG_FUNCTION_ARGS) {
   redisReply *reply = NULL;
-  struct timeval timeout = { 0, 500000 }; /* 0.5 seconds */
+  struct timeval timeout = { 0, 500000 }; /* 0.5 minutes */
   char *channel = text_to_cstring(PG_GETARG_TEXT_P(0));
   char *msg = text_to_cstring(PG_GETARG_TEXT_P(1));
 
