@@ -1,0 +1,4 @@
+comment = 'publish to redis'
+default_version = '1.0'
+module_pathname = '$libdir/pg_redispub'
+relocatable = true
