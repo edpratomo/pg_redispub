@@ -20,7 +20,7 @@ Use psql to load the extension:
 
 ## SELinux Troubleshooting
 
-If you see this warning: "WARNING:  failed to connect to redis" then check audit.log, e.g. /var/log/audit/audit.log:
+If you see this warning: "WARNING:  failed to connect to redis: permission denied" then check audit.log, e.g. /var/log/audit/audit.log:
 
     avc:  denied  { name_connect } for  pid=4773 comm="postgres" dest=6379 scontext=system_u:system_r:postgresql_t:s0 tcontext=system_u:object_r:redis_port_t:s0 tclass=tcp_socket permissive=0
 
