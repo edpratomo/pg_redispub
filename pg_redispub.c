@@ -14,8 +14,13 @@ Datum redispub(PG_FUNCTION_ARGS) {
   char *msg = text_to_cstring(PG_GETARG_TEXT_P(1));
 
   redisContext *ctx = redisConnectWithTimeout("127.0.0.1", 6379, timeout);
-  if (ctx != NULL && ctx->err) {
-    ereport(WARNING, (errcode(ERRCODE_WARNING), errmsg("failed to connect to redis: %s", ctx->errstr)));
+  if (ctx == NULL || ctx->err) {
+    if (ctx) {
+      ereport(WARNING, (errcode(ERRCODE_WARNING), errmsg("failed to connect to redis: %s", ctx->errstr)));
+      redisFree(ctx);
+    } else {
+      ereport(WARNING, (errcode(ERRCODE_WARNING), errmsg("failed to connect to redis: can't allocate redis context")));
+    }
     PG_RETURN_BOOL(false);
   }
 
